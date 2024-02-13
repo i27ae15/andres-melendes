@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Chess Bot</title>
+    <link rel="icon" href="./src/images/octopus.jpg" type="image/gif" sizes="16x16">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="Chess Bot" name="description" />
+    <meta content="" name="keywords" />
+    <meta content="" name="author" />
+    <!-- CSS Files
+    ================================================== -->
+    <link href="./src/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap" />
+    <link href="./src/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="./src/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="./src/css/custom-style-5.css" rel="stylesheet" type="text/css" />
+    <style>
+        :root {
+            --primary-color: #7744ab;
+            --primary-color-rgb: 119, 68, 171;
+        }
+    </style>
+    <link href="./src/css/coloring.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <html>
+        <body>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="blog-read">
+
+                            <img alt="" src="images/blog/big.jpg" class="img-fullwidth rounded">
+
+                            <h2>Piece Move</h2>
+                        <h3><strong>Core Responsibilities</strong></h3>
+                        <ul>
+                            <li><strong>Move Processing</strong>: The <code>PieceMove</code> class is primarily responsible for processing and storing detailed information about individual chess moves, including the type of piece moved, the move's notation, and the player's turn.</li>
+                            <li><strong>Special Move Handling</strong>: It specifically handles special moves like castling, determining the target square and piece position based on algebraic chess notation.</li>
+                            <li><strong>Move Information Storage</strong>: This class stores various attributes related to the move, such as piece abbreviation, piece name, and the target square, among others.</li>
+                        </ul>
+
+                        <h3><strong>Key Methods</strong></h3>
+                        <ul>
+                            <li><code>set_piece</code>: Determines and sets the type of piece involved in the move based on the move notation. It handles special cases like pawn moves and castling.</li>
+                            <li><code>get_castling_square</code>: Specifically for castling moves, this method calculates the target square.</li>
+                            <li><code>set_square_and_pos</code>: Determines and sets the target square and, if applicable, the piece's file from the move notation.</li>
+                            <li><code>set_move_information</code>: A comprehensive handler that sets the piece type, the target square, and other move-specific details, ensuring that all relevant attributes are accurately determined and set.</li>
+                        </ul>
+
+                        <h3><strong>Constructor</strong></h3>
+                        <p>The class is initialized with:</p>
+                        <ul>
+                            <li>move: <code>str</code></li>
+                            <li>player_turn: <code>PieceColor</code></li>
+                            <li>board: <code>Board</code></li>
+                        </ul>
+                        <p>It parses the move string for basic characteristics such as castling, piece involved, and target square, this is managed by the <code>set_move_information</code> method.</p>
+
+                        <h3><strong>Important</strong></h3>
+                        <p>This class does not check whether the move is legal or not. It only processes the move string and stores the information about the move.</p>
+
+                        <h3><strong>Working Functioning</strong></h3>
+                        <p>We call the <code>self.set_move_information</code> on the <code>init</code> method.</p>
+                        <p>Inside this method, we are going to set the piece of the given move with <code>self.set_piece()</code>. This last method will get the piece with the information passed in the move. E.G:</p>
+                        <pre>
+                        <code>if move == 'Nc3' then self.piece = 'Knight'</code>
+                        <code>if move == 'e3' then self.piece == 'Pawn'</code>
+                        </pre>
+                        <p>This will vary depending on the given move, of course.</p>
+                        <p>Then the next step is to determine the square where the piece is going to. E.G:</p>
+                        <pre>
+                        <code>if move == 'Nc3' then self.square = 'c3'</code>
+                        <code>if move == 'e3' then self.square == 'e3'</code>
+                        </pre>
+                        <p>This algebraic square is also converted into a tuple of <code>(row: int, column: int)</code>.</p>
+                        <p>Another important information that is going to be set is whether the piece is capturing another piece. For instance, <code>if move == 'Nc3'</code> and it happens to be a <code>Piece</code> on the c3 square, this is done by checking with <code>if board.get_piece_or_piece(...) and piece.color != self.player_turn: self.is_capture = True</code></p>
+                        <p>Important to note is that the method does not rely on the <code>x</code> symbol. It will always check if the position where the piece is going to is occupied by an enemy piece or not.</p>
+                        <p>At this point, we have all the information of the <code>move</code>.</p>
+                        <p>Other important information that is collected by the move is the validation of coronation, <code>piece_file</code>, <code>current_row</code>, and <code>current_column</code>.</p>
+
+
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </body>
+    </html>

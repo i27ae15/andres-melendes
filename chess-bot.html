@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Chess Bot</title>
+    <link rel="icon" href="./src/images/octopus.jpg" type="image/gif" sizes="16x16">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="Chess Bot" name="description" />
+    <meta content="" name="keywords" />
+    <meta content="" name="author" />
+    <!-- CSS Files
+    ================================================== -->
+    <link href="./src/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap" />
+    <link href="./src/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="./src/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="./src/css/custom-style-5.css" rel="stylesheet" type="text/css" />
+    <style>
+        :root {
+            --primary-color: #7744ab;
+            --primary-color-rgb: 119, 68, 171;
+        }
+    </style>
+    <link href="./src/css/coloring.css" rel="stylesheet" type="text/css" />
+</head>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="blog-read">
+
+                <img alt="" src="images/blog/big.jpg" class="img-fullwidth rounded">
+
+                <h2>Chess Bot</h2>
+
+                <div class="post-text">
+                    <h3>Description</h3>
+                    <p>I have always been very interested and in love with the world of artificial intelligence and complex systems. Chess with its deep strategic complexity,
+                        serves like a perfect start point for me to start exploring more about complex system and also to learn more about the artificial intelligence.
+                    </p>
+
+                    <h3>Motivations</h3>
+                    <p>My main motivation is for me to better understand the mathematics and dynamics behind of complex system.  Developing a chess bot represents an exciting
+                        way of viewing the interaction a complex but not so complex system letting me start from something “easy” to then continue scalling into deeper waters.
+                    </p>
+
+                    <p>That is why not only I have created a completly functional chess board where one can recreate any game through a PGN (Portable-game-notation) but I am
+                        also in the development of a AlphaZero-like algorithm that will allow me to have my own chess bot.
+                    </p>
+
+                    <p>Beyond this I also see the oportunity to apply this learning into more day-to-day interactions, I think that understanding the way some complex systems
+                        works, is the key to create solutions to many problems that we have nowdays.
+                    </p>
+                    <p>Why choosing chess to start with this mission of understanding complex systems? I like chess, is a hobby that I have re-encountered on 2023. You can
+                        find me on <a href="https://www.chess.com/member/i27ae15">chess.com</a> by the username of i27ae15.
+                    </p>
+
+                    <p>You can see the code <a href="https://github.com/i27ae15/SeleneChessBot">here.</a></p>
+                </div>
+
+                <hr>
+
+                <h2>How it works</h2>
+
+                <br>
+                <br>
+
+                <h2>Creating a Game</h2>
+
+                <p>The project is a based on the game class, which takes all the functional part of the project</p>
+
+                <h3>Game Class</h3>
+
+                <p>When we create an instance of the Game, we are initializing a game and the Board class.</p>
+                <p>Within the creation of the board class, we are creating the board in an 8 * 8 matrix, where each cell is represented by a <code>None</code> value or a Piece.
+                    The matrix is all initialized to <code>None</code> values, and then, during the initialization of the board class, the <code>create_initial_board_set_up</code> method is called.</p>
+                <p>In the <code>create_initial_board_set_up</code> method, the initial setup of the chess board is created, this is the creation of the 32 pieces, 16 black pieces and 16 white pieces.</p>
+                <p>Once this is successfully created, we are ready to start playing.</p>
+
+
+                <h2>Playing</h2>
+
+                <p>At this point, we can call the <code>start_game</code> method, a simple method with a while loop in it. This method just changes the perspective of the person who is playing.</p>
+                <p>Where the magic occurs is in the <code>game.move_piece</code> method.</p>
+
+                <h3>Moving a Piece</h3>
+                <p>This method is in charge of moving the pieces of the game. When the move is given, this is converted into a <a href="piece-move-class.html">PieceMove object</a>,
+                    which verifies whether the move is in the correct notation or if it has an error in it.
+                </p>
+
+                <p><strong>Note:</strong> The <code>PieceMove</code> class does not verify if the move is a legal move in the current state of the board and the game; this is done in another step.</p>
+                <p>Once we have verified that the move is written correctly, we call <code>game._add_board_state</code>, to be able to save the current state of the board in a Hash key. This is done to keep track of the states of the board and verify the Three-fold-repetition rule.</p>
+                <p>The next step is to get the pieces that are able to move, meaning we want the pieces of the <code>self.player_turn</code>. We do that by doing:</p>
+                <pre>
+                <code>pieces = self.board.pieces_on_board[self.player_turn]</code>
+                </pre>
+                <p>Once we have the pieces of the player, we want to look for the pieces that can actually perform the move to the given square. E.G., let’s say the move Nc3 was given. We want to look in the <code>pieces</code> variable for the <code>Piece</code> (in this case, a Knight) that is able to go to the c3 square.</p>
+                <p>This is done here:</p>
+                <pre>
+                <code>piece: Piece = self._get_movable_piece(
+                    piece_move=piece_move,
+                    pieces=pieces[piece_move.piece_name]
+                )</code>
+                </pre>
+                <p><a href="game.html#_get_movable_piece">Click to see how <code>_self_movable_piece</code> works</a></p>
+                <p>Once we know which piece we have to move, it's time to manage en-passant. We call <code>game._manage_en_passant_pawns</code> <!-- (<a href="#">click to view in details</a>) --> </p>
+                <p><strong>Note:</strong> We check for the piece to move before we manage en-passant because we could be checking for something that is not necessary in case that the
+                    given move was a ilegal one, since this will raise a <code>ValueError</code> making the code to calcuclate the en-passant-pawns for nothing</p>
+                <p>At this point, we are sure that we can move the piece to the given square (Knight to c3).</p>
+                <p>This movement is done on the <code>game._move_piece</code> method, here the <code>piece.move_to()</code> method is called <!-- (<a href="#">click to view in details</a>) --> </p>
+                <p>Once the piece has been moved to its new square, we can add this move to the history of the game.</p>
+                <pre>
+                <code>piece.add_move_to_story(
+                    move_number=self.current_turn,
+                    new_position=piece_move.square
+                )</code>
+                </pre>
+                <p>And finally, just manage the game state to view if someone has checkmated the other player or if they reached a draw due to the three-fold-repetition rule or the fifty-moves rule.</p>
+                <p>This process is repeated until <code>self.game_terminate</code> is <code>True</code>.</p>
+
+                <br>
+                <br>
+                <br>
+                <br>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

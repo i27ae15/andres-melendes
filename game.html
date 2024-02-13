@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Chess Bot</title>
+    <link rel="icon" href="./src/images/octopus.jpg" type="image/gif" sizes="16x16">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="Chess Bot" name="description" />
+    <meta content="" name="keywords" />
+    <meta content="" name="author" />
+    <!-- CSS Files
+    ================================================== -->
+    <link href="./src/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap" />
+    <link href="./src/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="./src/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="./src/css/custom-style-5.css" rel="stylesheet" type="text/css" />
+    <style>
+        :root {
+            --primary-color: #7744ab;
+            --primary-color-rgb: 119, 68, 171;
+        }
+    </style>
+    <link href="./src/css/coloring.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <html>
+        <body>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="blog-read">
+
+                            <img alt="" src="images/blog/big.jpg" class="img-fullwidth rounded">
+
+                            <h2>Piece Move</h2>
+
+                            <h3><strong>Core Responsibilities</strong></h3>
+                            <ul>
+                                <li><strong>Board Creation & Management</strong>: The <code>Game</code> class initializes and manages the chessboard, overseeing the placement and movement of pieces.</li>
+                                <li><strong>Move Tracking</strong>: Every move made in the game is meticulously tracked. This includes the order of moves, and which player (White or Black) made each move.</li>
+                                <li><strong>Rule Enforcement</strong>: The class ensures adherence to key chess rules like the 50-move rule, threefold repetition, insufficient material, stalemate, and checkmate.</li>
+                            </ul>
+
+                            <h3><strong>Independent Operation</strong></h3>
+                            <p>A key design aspect is the independence of the <code>Game</code> class from the <code>Board</code> class. This allows flexibility in the game's structure, where a board can exist without an active game and vice versa.</p>
+
+                            <h3><strong>Key Methods</strong></h3>
+                            <ul>
+                                <li><code>move_piece</code>: This method is crucial for updating the game with each move. It processes moves in algebraic notation, applies them to the board, updates the game state, and handles special rules. It's vigilant against invalid moves, ensuring the game's integrity.</li>
+                                <li><code>_get_movable_piece</code>: A helper method that selects the specific piece to be moved based on the current move's details. It's smart in filtering and choosing the right piece for the move.</li>
+                                <li><code>_manage_game_state</code>: Post-move, this method updates the game's state. It keeps track of the turn numbers and switches player turns, ensuring the game progresses correctly.</li>
+                                <li><code>_move_piece</code>: Here's where the actual piece movement happens, including special moves like castling. It checks for the legality and feasibility of the move.</li>
+                                <li><code>_clean_en_passant_pawns</code>: This method resets the en passant status of pawns, maintaining the game's accuracy, especially after pawn moves.</li>
+                                <li><code>_manage_en_passant_pawns</code>: It manages pawns that can be captured by en passant, updating their status based on the most recent moves.</li>
+                            </ul>
+
+                            <h3 id="_get_movable_piece"><code>_get_movable_piece(self, piece_move: PieceMove)</code>:</h3>
+                            <p>This method is in charge of getting the piece that can reach the <code>piece_move.square</code> position.</p>
+                            <p>In order to do this, we need to combine the information given by the PieceMove object and the <code>self.pieces_on_board</code> variable.</p>
+                            <p>Let’s say the move Nc3 was given and both Knights are still on the board.</p>
+                            <p>We want to look in the <code>self.pieces_on_board</code> variable for the <code>Piece</code> (in this case a Knight) that is able to go to the c3 square.</p>
+                            <p>Since we have stored these pieces in a dictionary we can simply:</p>
+                            <pre>
+                            <code>pieces = self.pieces_on_board[self.player_turn][piece_move.piece_name]</code>
+                            </pre>
+                            <p>With this simple line of code, we have access to the pieces we have to look at. We will check if we have access to other information, like the file where the piece is located, helpful when the piece is a Pawn and necessary when the two pieces can go to the same square.</p>
+                            <p>For example, if we have a Knight on <code>g1</code> and a Knight on <code>e2</code>, this means that both can go to the <code>c3</code> square, so the move must be passed as Ngc3 in order to get the desired Knight to the c3 square.</p>
+                            <p>Or if the row or column is also given, necessary when, as the previous examples, two pieces located in the same column or row can go to a given square.</p>
+                            <p>But let’s say nothing of this occurs, both Knights are in their started square (<code>g1</code> and <code>b1</code>) and we get Nc3 as the given move, due to the elimination we did above. We only need to loop through these two Knights to obtain the one we want to move:</p>
+                            <pre>
+                            <code>if piece_move.square in piece.calculate_legal_moves : return piece</code>
+                            </pre>
+                            <!-- <p>(<a href="#">click to view further details of <code>piece.calculate_legal_moves</code> method</a>)</p> -->
+                            <p>Meaning that we have the piece that can legally move to the c3 square, if no piece is found, this means that the given move is not a legal move in the current board and we raise a <code>ValueError</code>.</p>
+
+
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </body>
+    </html>
