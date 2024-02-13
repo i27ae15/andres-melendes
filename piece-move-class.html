@@ -76,11 +76,15 @@
                         <code>if move == 'e3' then self.square == 'e3'</code>
                         </pre>
                         <p>This algebraic square is also converted into a tuple of <code>(row: int, column: int)</code>.</p>
-                        <p>Another important information that is going to be set is whether the piece is capturing another piece. For instance, <code>if move == 'Nc3'</code> and it happens to be a <code>Piece</code> on the c3 square, this is done by checking with <code>if board.get_piece_or_piece(...) and piece.color != self.player_turn: self.is_capture = True</code></p>
+                        <p>Another important information that is going to be set is whether the piece is capturing another piece. For instance, <code>if move == 'Nc3'</code> and it happens to be a <code>Piece</code> on the c3 square, this is done by checking with <code>if board.get_piece_or_piece(...) and piece.color != self.player_turn: self.is_capture = True.</code></p>
                         <p>Important to note is that the method does not rely on the <code>x</code> symbol. It will always check if the position where the piece is going to is occupied by an enemy piece or not.</p>
                         <p>At this point, we have all the information of the <code>move</code>.</p>
-                        <p>Other important information that is collected by the move is the validation of coronation, <code>piece_file</code>, <code>current_row</code>, and <code>current_column</code>.</p>
+                        <p>Other important information that is collected by the move are: </p>
 
+                            <li>Validation of coronation</li>
+                            <li><code>piece_file</code></li>
+                            <li><code>current_row</code></li>
+                            <li><code>current_column</code></li>
 
                         <br>
                         <br>

@@ -67,11 +67,11 @@
 
                 <h2>Creating a Game</h2>
 
-                <p>The project is a based on the game class, which takes all the functional part of the project</p>
+                <p>The project is based on the <code>ChessGame</code> class, which takes all the functional part of a chess game</p>
 
-                <h3>Game Class</h3>
+                <h3><code>ChessGame</code> Class</h3>
 
-                <p>When we create an instance of the Game, we are initializing a game and the Board class.</p>
+                <p>When we create an instance of the <code>ChessGame</code>, we are initializing the <code>Game</code> and the <code>Board</code> classes.</p>
                 <p>Within the creation of the board class, we are creating the board in an 8 * 8 matrix, where each cell is represented by a <code>None</code> value or a Piece.
                     The matrix is all initialized to <code>None</code> values, and then, during the initialization of the board class, the <code>create_initial_board_set_up</code> method is called.</p>
                 <p>In the <code>create_initial_board_set_up</code> method, the initial setup of the chess board is created, this is the creation of the 32 pieces, 16 black pieces and 16 white pieces.</p>
@@ -84,7 +84,7 @@
                 <p>Where the magic occurs is in the <code>game.move_piece</code> method.</p>
 
                 <h3>Moving a Piece</h3>
-                <p>This method is in charge of moving the pieces of the game. When the move is given, this is converted into a <a href="piece-move-class.html">PieceMove object</a>,
+                <p>This method is in charge of moving the pieces of the game. When the move is given, this is converted into a <a href="piece-move-class.html">PieceMove</a> object,
                     which verifies whether the move is in the correct notation or if it has an error in it.
                 </p>
 
@@ -102,12 +102,12 @@
                     pieces=pieces[piece_move.piece_name]
                 )</code>
                 </pre>
-                <p><a href="game.html#_get_movable_piece">Click to see how <code>_self_movable_piece</code> works</a></p>
-                <p>Once we know which piece we have to move, it's time to manage en-passant. We call <code>game._manage_en_passant_pawns</code> <!-- (<a href="#">click to view in details</a>) --> </p>
+                <p><a href="game.html#_get_movable_piece">Click to see how </a><code>_self_movable_piece</code> works.</p>
+                <p>Once we know which piece we have to move, it's time to manage en-passant. We call <code>game._manage_en_passant_pawns.</code> <!-- (<a href="#">click to view in details</a>) --> </p>
                 <p><strong>Note:</strong> We check for the piece to move before we manage en-passant because we could be checking for something that is not necessary in case that the
-                    given move was a ilegal one, since this will raise a <code>ValueError</code> making the code to calcuclate the en-passant-pawns for nothing</p>
+                    given move was a ilegal one, since this will raise a <code>ValueError</code> making the code to calcuclate the en-passant-pawns for nothing.</p>
                 <p>At this point, we are sure that we can move the piece to the given square (Knight to c3).</p>
-                <p>This movement is done on the <code>game._move_piece</code> method, here the <code>piece.move_to()</code> method is called <!-- (<a href="#">click to view in details</a>) --> </p>
+                <p>This movement is done on the <code>game._move_piece</code> method, here the <code>piece.move_to()</code> method is called. <!-- (<a href="#">click to view in details</a>) --> </p>
                 <p>Once the piece has been moved to its new square, we can add this move to the history of the game.</p>
                 <pre>
                 <code>piece.add_move_to_story(
